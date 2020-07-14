@@ -1,5 +1,5 @@
-# Python program to illustrate the concept                                                                                                                                                                                                   
-# of threading                                                                                                                                                                                                                               
+# Python program to illustrate the concept                                                                                                                                                                   
+# of threading                                                                                                                                                                                               
 import threading
 import os
 import requests
@@ -21,8 +21,8 @@ def printTask (obj):
     print("\n")
 
 if __name__ == "__main__":
-    csvfile = open('helix2.csv', 'r')
-    jsonfile = open('vivek.json', 'w')
+    csvfile = open('helix2.csv', 'r', encoding='utf-8-sig')
+    jsonfile = open('vivek.json','w' , encoding='utf-8-sig')
     reader = csv.DictReader(csvfile)
     counter = 0
     limit = 32
@@ -31,15 +31,19 @@ if __name__ == "__main__":
         counter += 1
         print (str(row))
         print ("\n*************************\n")
-        #constructing a json object to send to api , so it will be processed by lambda                                                                                                                                                       
+        #constructing a json object to send to api , so it will be processed by lambda                                                                                                                       
         value = row
+        print(row)
         value = json.dumps(value)
         value2 = json.loads(value)
         payLoad = str(value2)
+        print("******\n")
         tx = threading.Thread(target=printTask, args=(payLoad,))
+        print(payLoad)
+        print("\n******")
         tx.start()
         threads.append(tx)
-        #writing stuff to json file for error and debugging                                                                                                                                                                                  
+        #writing stuff to json file for error and debugging                                                                                                                                                  
         json.dump(row, jsonfile)
         jsonfile.write('\n')
         if (counter == limit):
