@@ -3,15 +3,6 @@ import ast
 import time
 import pymysql
 from time import gmtime, strftime
-
-
-rds_host  = "appychip-instance-1.ckbuxwoy9jlx.us-east-2.rds.amazonaws.com"
-name = "appychip"
-password = "appychip"
-db_name = "appychip"
-connection = pymysql.connect(rds_host, user=name, passwd=password, db=db_name)
-
-
 def lambda_handler(event, context):
     print("In lambda handler")
     print(event)
@@ -55,11 +46,11 @@ def lambda_handler(event, context):
     AIRLINE_DELAY  = currentD['AIRLINE_DELAY']                                                           
     LATE_AIRCRAFT_DELAY = currentD['LATE_AIRCRAFT_DELAY']                                                          
     WEATHER_DELAY = currentD['WEATHER_DELAY']
-    #rds_host  = "appychip-instance-1.ckbuxwoy9jlx.us-east-2.rds.amazonaws.com"
-    #name = "appychip"
-    #password = "appychip"
-    #db_name = "appychip"
-    #connection = pymysql.connect(rds_host, user=name, passwd=password, db=db_name)
+    rds_host  = "appychip-instance-1.ckbuxwoy9jlx.us-east-2.rds.amazonaws.com"
+    name = "appychip"
+    password = "appychip"
+    db_name = "appychip"
+    connection = pymysql.connect(rds_host, user=name, passwd=password, db=db_name)
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM flights")
     insertDB = '''INSERT INTO flights (YEAR, MONTH, DAY, DAY_OF_WEEK, AIRLINE, FLIGHT_NUMBER , TAIL_NUMBER, ORIGIN_AIRPORT, DESTINATION_AIRPORT, SCHEDULED_DEPARTURE,                                            
